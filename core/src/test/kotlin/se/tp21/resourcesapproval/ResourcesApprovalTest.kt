@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.opentest4j.AssertionFailedError
+import se.tp21.resourcesapproval.WriteTo.*
 import java.io.File
 import kotlin.test.assertEquals
 
@@ -42,7 +43,10 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertDoesNotThrow {
-                ResourcesApproval.assertApproved(approvedContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = approvedContent,
+                    approved = approvedFile.name
+                )
             }
 
             assertOnlyHaveApprovedFile()
@@ -53,7 +57,10 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertThrows<AssertionFailedError> {
-                ResourcesApproval.assertApproved(newContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = newContent,
+                    approved = approvedFile.name
+                )
             }
 
             assertOnlyHaveApprovedFile()
@@ -67,7 +74,11 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertDoesNotThrow {
-                ResourcesApproval.assertApprovedWriteActual(approvedContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = approvedContent,
+                    approved = approvedFile.name,
+                    writeTo = Actual
+                )
             }
 
             assertOnlyHaveApprovedFile()
@@ -78,7 +89,11 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertThrows<AssertionFailedError> {
-                ResourcesApproval.assertApprovedWriteActual(newContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = newContent,
+                    approved = approvedFile.name,
+                    writeTo = Actual
+                )
             }
 
             assertHaveApprovedFile()
@@ -95,7 +110,11 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertDoesNotThrow {
-                ResourcesApproval.assertApprovedWriteApproved(approvedContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = approvedContent,
+                    approved = approvedFile.name,
+                    writeTo = Approved
+                )
             }
 
             assertOnlyHaveApprovedFile()
@@ -106,7 +125,11 @@ class ResourcesApprovalTest {
             assertOnlyHaveApprovedFile()
 
             assertThrows<AssertionFailedError> {
-                ResourcesApproval.assertApprovedWriteApproved(newContent, approvedFile.name)
+                ResourcesApproval.assertApproved(
+                    actual = newContent,
+                    approved = approvedFile.name,
+                    writeTo = Approved
+                )
             }
 
             assertHaveApprovedFile()

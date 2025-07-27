@@ -5,36 +5,29 @@ package se.tp21.resourcesapproval
 import java.io.File
 import kotlin.test.assertEquals
 
+enum class WriteTo {
+    Approved, Actual
+}
+
 object ResourcesApproval {
     const val resourcesPath = "src/test/resources"
 
-    fun assertApproved(actual: String, approved: String) {
-        assertEquals(
-            expected = approved.content(),
-            actual = actual,
-        )
-    }
-
-    fun assertApprovedWriteActual(actual: String, approved: String) {
+    fun assertApproved(actual: String, approved: String, writeTo: WriteTo? = null) {
         runCatching {
             assertEquals(
                 expected = approved.content(),
                 actual = actual,
             )
         }.onFailure { throwable ->
-            approved.toActual().write(actual).also { throw throwable }
+            writeTo?.let {
+                when (writeTo) {
+                    WriteTo.Approved -> approved.write(actual)
+                    WriteTo.Actual -> approved.toActual().write(actual)
+                }
+            }
+            throw throwable
         }
-    }
 
-    fun assertApprovedWriteApproved(actual: String, approved: String) {
-        runCatching {
-            assertEquals(
-                expected = approved.content(),
-                actual = actual,
-            )
-        }.onFailure { throwable ->
-            approved.write(actual).also { throw throwable }
-        }
     }
 
     private fun String.content(): String = File("${this@ResourcesApproval.resourcesPath}/${this}").readText()
