@@ -2,6 +2,8 @@
 
 package se.tp21.resourcesapproval
 
+import se.tp21.resourcesapproval.WriteTo.Actual
+import se.tp21.resourcesapproval.WriteTo.Approved
 import java.io.File
 import kotlin.test.assertEquals
 
@@ -21,8 +23,8 @@ object ResourcesApproval {
         }.onFailure { throwable ->
             writeTo?.let {
                 when (writeTo) {
-                    WriteTo.Approved -> approved.write(actual)
-                    WriteTo.Actual -> approved.toActual().write(actual)
+                    Approved -> approved.write(actual)
+                    Actual -> approved.toActualFile().write(actual)
                 }
             }
             throw throwable
@@ -30,14 +32,16 @@ object ResourcesApproval {
 
     }
 
-    private fun String.content(): String = File("${this@ResourcesApproval.resourcesPath}/${this}").readText()
+    private fun String.content(): String = File("${resourcesPath}/${this}").readText()
 
-    private fun String.toActual(): String {
-        val (fileName, extension) = this.split(".").let { it.dropLast(1).joinToString(".") to it.last() }
-        return "$fileName.actual.$extension"
-    }
+    private fun String.toActualFile(): String =
+        this.split(".")
+            .let { it.dropLast(1).joinToString(".") to it.last() }
+            .let { (fileName, extension) ->
+                "$fileName.actual.$extension"
+            }
 
     private fun String.write(content: String) {
-        File("${this@ResourcesApproval.resourcesPath}/${this}").writeText(content)
+        File("${resourcesPath}/${this}").writeText(content)
     }
 }
