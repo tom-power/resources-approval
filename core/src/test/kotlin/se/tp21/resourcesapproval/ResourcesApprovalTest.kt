@@ -40,7 +40,8 @@ class ResourcesApprovalTest {
     inner class AssertApproved {
         @Test
         fun `can assert approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertDoesNotThrow {
                 ResourcesApproval.assertApproved(
@@ -49,12 +50,14 @@ class ResourcesApprovalTest {
                 )
             }
 
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
         }
 
         @Test
         fun `can assert not approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertThrows<AssertionFailedError> {
                 ResourcesApproval.assertApproved(
@@ -63,7 +66,8 @@ class ResourcesApprovalTest {
                 )
             }
 
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
         }
     }
 
@@ -71,7 +75,8 @@ class ResourcesApprovalTest {
     inner class AssertApprovedWriteActual {
         @Test
         fun `can assert approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertDoesNotThrow {
                 ResourcesApproval.assertApproved(
@@ -81,12 +86,14 @@ class ResourcesApprovalTest {
                 )
             }
 
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
         }
 
         @Test
         fun `can assert not approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertThrows<AssertionFailedError> {
                 ResourcesApproval.assertApproved(
@@ -96,18 +103,18 @@ class ResourcesApprovalTest {
                 )
             }
 
-            assertHaveApprovedFile()
-            assertApprovedFileHasApprovedContent()
+            assertHaveApprovedFileWithApprovedContent()
             assertHaveActualFile()
             assertActualFileHasNewContent()
         }
     }
 
     @Nested
-    inner class AutoApprovedWriteApproved {
+    inner class AssertApprovedWriteApproved {
         @Test
         fun `can assert approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertDoesNotThrow {
                 ResourcesApproval.assertApproved(
@@ -117,12 +124,14 @@ class ResourcesApprovalTest {
                 )
             }
 
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
         }
 
         @Test
         fun `can assert not approved`() {
-            assertOnlyHaveApprovedFile()
+            assertHaveApprovedFileWithApprovedContent()
+            assertDontHaveActualFile()
 
             assertThrows<AssertionFailedError> {
                 ResourcesApproval.assertApproved(
@@ -138,10 +147,9 @@ class ResourcesApprovalTest {
         }
     }
 
-    private fun assertOnlyHaveApprovedFile() {
+    private fun assertHaveApprovedFileWithApprovedContent() {
         assertHaveApprovedFile()
         assertApprovedFileHasApprovedContent()
-        assertDontHaveActualFile()
     }
 
     private fun assertHaveApprovedFile() {
