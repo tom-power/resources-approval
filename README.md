@@ -1,7 +1,7 @@
 Resources Approval
 =========
 
-Playing with simple use case of asserting content against an approved file in resources using JUnit5. 
+Playing with simple use case of asserting content against an approved file in resources using [kotlin-test](https://kotlinlang.org/api/core/kotlin-test/) / JUnit 5. 
 
 ```kotlin
 class ResourcesApprovalExampleTest {

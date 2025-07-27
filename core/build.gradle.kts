@@ -13,7 +13,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("test"))
-    implementation("com.approvaltests:approvaltests:25.0.23")
 }
 
 
